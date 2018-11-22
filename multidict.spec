@@ -4,7 +4,7 @@
 #
 Name     : multidict
 Version  : 4.5.1
-Release  : 6
+Release  : 7
 URL      : https://files.pythonhosted.org/packages/21/30/f08438389a2540b9b2145f47a1ef9e64687a8b90b374e74829d8acd13c0b/multidict-4.5.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/21/30/f08438389a2540b9b2145f47a1ef9e64687a8b90b374e74829d8acd13c0b/multidict-4.5.1.tar.gz
 Summary  : multidict implementation
@@ -54,7 +54,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542910576
+export SOURCE_DATE_EPOCH=1542910994
 python3 setup.py build
 
 %install
