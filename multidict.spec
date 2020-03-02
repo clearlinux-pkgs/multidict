@@ -4,7 +4,7 @@
 #
 Name     : multidict
 Version  : 4.7.5
-Release  : 20
+Release  : 21
 URL      : https://files.pythonhosted.org/packages/61/b4/475114b3f1671da634f89239e61038f8742d9ac13aa34b32a05bf8022d22/multidict-4.7.5.tar.gz
 Source0  : https://files.pythonhosted.org/packages/61/b4/475114b3f1671da634f89239e61038f8742d9ac13aa34b32a05bf8022d22/multidict-4.7.5.tar.gz
 Summary  : multidict implementation
@@ -19,9 +19,106 @@ BuildRequires : buildreq-distutils3
 =========
 multidict
 =========
+
 .. image:: https://dev.azure.com/aio-libs/multidict/_apis/build/status/CI?branchName=master
-:target: https://dev.azure.com/aio-libs/multidict/_build
-:alt: Azure Pipelines status for master branch
+   :target: https://dev.azure.com/aio-libs/multidict/_build
+   :alt: Azure Pipelines status for master branch
+
+.. image:: https://codecov.io/gh/aio-libs/multidict/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/aio-libs/multidict
+   :alt: Coverage metrics
+
+.. image:: https://img.shields.io/pypi/v/multidict.svg
+   :target: https://pypi.org/project/multidict
+   :alt: PyPI
+
+.. image:: https://readthedocs.org/projects/multidict/badge/?version=latest
+   :target: http://multidict.readthedocs.org/en/latest/?badge=latest
+   :alt: Documentationb
+
+.. image:: https://img.shields.io/pypi/pyversions/multidict.svg
+   :target: https://pypi.org/project/multidict
+   :alt: Python versions
+
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :target: https://gitter.im/aio-libs/Lobby
+   :alt: Chat on Gitter
+
+Multidict is dict-like collection of *key-value pairs* where key
+might be occurred more than once in the container.
+
+Introduction
+------------
+
+*HTTP Headers* and *URL query string* require specific data structure:
+*multidict*. It behaves mostly like a regular ``dict`` but it may have
+several *values* for the same *key* and *preserves insertion ordering*.
+
+The *key* is ``str`` (or ``istr`` for case-insensitive dictionaries).
+
+``multidict`` has four multidict classes:
+``MultiDict``, ``MultiDictProxy``, ``CIMultiDict``
+and ``CIMultiDictProxy``.
+
+Immutable proxies (``MultiDictProxy`` and
+``CIMultiDictProxy``) provide a dynamic view for the
+proxied multidict, the view reflects underlying collection changes. They
+implement the ``collections.abc.Mapping`` interface.
+
+Regular mutable (``MultiDict`` and ``CIMultiDict``) classes
+implement ``collections.abc.MutableMapping`` and allows to change
+their own content.
+
+
+*Case insensitive* (``CIMultiDict`` and
+``CIMultiDictProxy``) ones assume the *keys* are case
+insensitive, e.g.::
+
+   >>> dct = CIMultiDict(key='val')
+   >>> 'Key' in dct
+   True
+   >>> dct['Key']
+   'val'
+
+*Keys* should be ``str`` or ``istr`` instances.
+
+The library has optional C Extensions for sake of speed.
+
+
+License
+-------
+
+Apache 2
+
+Library Installation
+--------------------
+
+.. code-block:: bash
+
+   $ pip install multidict
+
+The library is Python 3 only!
+
+PyPI contains binary wheels for Linux, Windows and MacOS.  If you want to install
+``multidict`` on another operation system (or *Alpine Linux* inside a Docker) the
+Tarball will be used to compile the library from sources.  It requires C compiler and
+Python headers installed.
+
+To skip the compilation please use `MULTIDICT_NO_EXTENSIONS` environment variable,
+e.g.:
+
+.. code-block:: bash
+
+   $ MULTIDICT_NO_EXTENSIONS=1 pip install multidict
+
+Please note, Pure Python (uncompiled) version is about 20-50 times slower depending on
+the usage scenario!!!
+
+
+
+Changelog
+---------
+See `RTD page <http://multidict.readthedocs.org/en/latest/changes.html>`_.
 
 %package license
 Summary: license components for the multidict package.
@@ -44,6 +141,7 @@ python components for the multidict package.
 Summary: python3 components for the multidict package.
 Group: Default
 Requires: python3-core
+Provides: pypi(multidict)
 
 %description python3
 python3 components for the multidict package.
@@ -58,7 +156,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582323784
+export SOURCE_DATE_EPOCH=1583175061
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
