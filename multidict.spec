@@ -4,7 +4,7 @@
 #
 Name     : multidict
 Version  : 5.2.0
-Release  : 37
+Release  : 38
 URL      : https://files.pythonhosted.org/packages/8e/7c/e12a69795b7b7d5071614af2c691c97fbf16a2a513c66ec52dd7d0a115bb/multidict-5.2.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/8e/7c/e12a69795b7b7d5071614af2c691c97fbf16a2a513c66ec52dd7d0a115bb/multidict-5.2.0.tar.gz
 Summary  : multidict implementation
