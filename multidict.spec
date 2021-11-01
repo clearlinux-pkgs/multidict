@@ -4,12 +4,13 @@
 #
 Name     : multidict
 Version  : 5.2.0
-Release  : 39
+Release  : 40
 URL      : https://files.pythonhosted.org/packages/8e/7c/e12a69795b7b7d5071614af2c691c97fbf16a2a513c66ec52dd7d0a115bb/multidict-5.2.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/8e/7c/e12a69795b7b7d5071614af2c691c97fbf16a2a513c66ec52dd7d0a115bb/multidict-5.2.0.tar.gz
 Summary  : multidict implementation
 Group    : Development/Tools
 License  : Apache-2.0
+Requires: multidict-license = %{version}-%{release}
 Requires: multidict-python = %{version}-%{release}
 Requires: multidict-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
@@ -21,6 +22,14 @@ multidict
 .. image:: https://github.com/aio-libs/multidict/workflows/CI/badge.svg
 :target: https://github.com/aio-libs/multidict/actions?query=workflow%3ACI
 :alt: GitHub status for master branch
+
+%package license
+Summary: license components for the multidict package.
+Group: Default
+
+%description license
+license components for the multidict package.
+
 
 %package python
 Summary: python components for the multidict package.
@@ -50,7 +59,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1633358696
+export SOURCE_DATE_EPOCH=1635754468
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -62,6 +71,8 @@ python3 setup.py build
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/multidict
+cp %{_builddir}/multidict-5.2.0/LICENSE %{buildroot}/usr/share/package-licenses/multidict/02821ffe00e8c771ad89722cbe98e5d74ba36369
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -69,6 +80,10 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/multidict/02821ffe00e8c771ad89722cbe98e5d74ba36369
 
 %files python
 %defattr(-,root,root,-)
